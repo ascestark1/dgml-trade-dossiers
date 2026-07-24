@@ -1,0 +1,178 @@
+# ==========================================================================
+# DGML docset schema — Afritensor Trade Dossier
+#
+# One dossier = the decision record of one autonomous trade.
+#
+# Conforms to DGML spec v0.7 (github.com/dgml-io/dgml-spec).
+# Notes specific to this docset:
+#   - These documents are BORN DIGITAL: there is no source PDF and no page
+#     images, so no element carries a spatial @dg:origin. Per spec §7
+#     ("Elements for which no source match exists ... omit dg:origin"),
+#     sourced elements simply omit it. Elements derived from other elements
+#     carry dg:origin="computed" plus @dg:itemprop/@dg:href to their inputs,
+#     per spec §7 "Reserved value: computed".
+#   - Element text is the human display form; the canonical machine value is
+#     in @dg:value, typed by @xsi:type (XSD built-in names), per spec §6.
+# ==========================================================================
+
+default namespace docset = "http://www.dgml.io/afritensor/trade-dossiers#"
+namespace dg = "http://dgml.io/ns/dg#"
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+
+start = dg.chunk
+
+# --- attributes common to every DGML element ------------------------------
+common.atts =
+  attribute dg:structure { text }?,
+  attribute dg:origin { text }?,
+  attribute xml:id { xsd:ID }?,
+  attribute dg:itemprop { text }?,
+  attribute dg:href { text }?,
+  attribute dg:value { text }?,
+  attribute xsi:type { text }?
+
+# --- generic structural scaffolding ---------------------------------------
+dg.chunk = element dg:chunk { common.atts, mixed { any.docset* } }
+dg.private = element dg:* { common.atts, mixed { any.docset* } }
+
+any.docset = dg.chunk | dg.private | concept*
+
+# --- concepts -------------------------------------------------------------
+
+## The whole decision record for one trade.
+TradeDossier = element docset:TradeDossier { common.atts, mixed { any.docset* } }
+
+## What the agent committed to BEFORE the outcome was known.
+## Example: SELL 5m Overnight
+## Prompt: The sealed pre-trade thesis: direction, timeframe, session, confidence.
+Thesis = element docset:Thesis { common.atts, mixed { any.docset* } }
+
+## Predicted direction of the move.
+## Example: down
+Direction = element docset:Direction { common.atts, mixed { any.docset* } }
+
+## Chart timeframe the signal was raised on.
+## Example: 5m
+Timeframe = element docset:Timeframe { common.atts, mixed { any.docset* } }
+
+## Trading session label at signal time.
+## Example: Overnight
+Session = element docset:Session { common.atts, mixed { any.docset* } }
+
+## Confidence tier asserted by the signal agent.
+## Example: high
+ConfidenceTier = element docset:ConfidenceTier { common.atts, mixed { any.docset* } }
+
+## Market regime the market agent read at signal time.
+## Example: ranging
+Regime = element docset:Regime { common.atts, mixed { any.docset* } }
+
+## When the thesis was emitted (UTC, ISO 8601).
+## Example: 2026-07-07T22:01:01Z
+CommittedAt = element docset:CommittedAt { common.atts, mixed { any.docset* } }
+
+## Container for every gate that evaluated this signal.
+Gates = element docset:Gates { common.atts, mixed { any.docset* } }
+
+## One gate's decision. @dg:value carries pass|route|suppress|refuse|advisory.
+## Example: routed to watcher
+## Prompt: The verdict of a single named risk or context gate.
+GateVerdict = element docset:GateVerdict { common.atts, mixed { any.docset* } }
+
+## How the trade was actually placed and managed.
+Execution = element docset:Execution { common.atts, mixed { any.docset* } }
+
+## Entry mode selected by the watcher.
+## Example: pullback
+EntryMode = element docset:EntryMode { common.atts, mixed { any.docset* } }
+
+## Price at which the watcher's entry condition confirmed.
+## Example: 63289.35
+TriggerPrice = element docset:TriggerPrice { common.atts, mixed { any.docset* } }
+
+## Price actually filled at the broker (differs from trigger by spread).
+## Example: 63264.35
+FillPrice = element docset:FillPrice { common.atts, mixed { any.docset* } }
+
+## Structural stop-loss level as sent to the broker.
+## Example: 63470.35
+StopLoss = element docset:StopLoss { common.atts, mixed { any.docset* } }
+
+## Take-profit level as sent to the broker.
+## Example: 63048.62
+TakeProfit = element docset:TakeProfit { common.atts, mixed { any.docset* } }
+
+## Risk distance from fill to stop, in points. Derived.
+## Example: 206
+RiskPoints = element docset:RiskPoints { common.atts, mixed { any.docset* } }
+
+## Position size in lots.
+## Example: 0.06
+Volume = element docset:Volume { common.atts, mixed { any.docset* } }
+
+## Broker ticket identifying the position.
+## Example: 933125463
+BrokerTicket = element docset:BrokerTicket { common.atts, mixed { any.docset* } }
+
+## What actually happened, measured against the committed thesis.
+Outcome = element docset:Outcome { common.atts, mixed { any.docset* } }
+
+## Whether the trade resolved in the committed direction.
+## Example: false
+Win = element docset:Win { common.atts, mixed { any.docset* } }
+
+## Price at which the position closed.
+## Example: 63474.05
+ExitPrice = element docset:ExitPrice { common.atts, mixed { any.docset* } }
+
+## How the position ended: take_profit | stop_loss | max_hold | manual.
+## Example: stop_loss
+ExitReason = element docset:ExitReason { common.atts, mixed { any.docset* } }
+
+## Realized profit or loss in account currency.
+## Example: -12.58
+RealizedPnlUsd = element docset:RealizedPnlUsd { common.atts, mixed { any.docset* } }
+
+## Realized result as a multiple of the risk taken. Derived.
+## Example: -1.02
+RealizedR = element docset:RealizedR { common.atts, mixed { any.docset* } }
+
+## When the outcome was measured (UTC, ISO 8601).
+## Example: 2026-07-07T22:11:55Z
+ResolvedAt = element docset:ResolvedAt { common.atts, mixed { any.docset* } }
+
+## Container for the on-chain records attesting this dossier.
+Provenance = element docset:Provenance { common.atts, mixed { any.docset* } }
+
+## Identifier the signal was committed under.
+## Example: sig_20260707220101_bo6x
+SignalId = element docset:SignalId { common.atts, mixed { any.docset* } }
+
+## Identifier the filled entry was committed under.
+## Example: ew_20260707220344_tkx0
+EntrySignalId = element docset:EntrySignalId { common.atts, mixed { any.docset* } }
+
+## Chain and transaction sealing the thesis before the outcome.
+## Example: 0x12740173bd9be2535ac9000715657b014718d74ef5113b2be01247e54454d7c4
+XeneaCommitTx = element docset:XeneaCommitTx { common.atts, mixed { any.docset* } }
+
+## Chain and transaction recording the measured outcome.
+## Example: 0x2816dcc8724fd6c7fe6325bcc579ca2da547544c72980c2565db14d4327e0e63
+XeneaOutcomeTx = element docset:XeneaOutcomeTx { common.atts, mixed { any.docset* } }
+
+## Portable receipt transaction on NVNM Chain.
+## Example: 0x9f52f69340c35b4a1b0e5f8ad2c7e9b40361f8c2a5d7e9034bc16d8e2f5a7c91
+NvnmReceiptTx = element docset:NvnmReceiptTx { common.atts, mixed { any.docset* } }
+
+## Caveat recorded against outcomes measured by a known-faulty oracle rule.
+## Example: pre-2026-07-05 first-touch reporting
+MeasurementCaveat = element docset:MeasurementCaveat { common.atts, mixed { any.docset* } }
+
+concept =
+    TradeDossier | Thesis | Direction | Timeframe | Session | ConfidenceTier
+  | Regime | CommittedAt | Gates | GateVerdict | Execution | EntryMode
+  | TriggerPrice | FillPrice | StopLoss | TakeProfit | RiskPoints | Volume
+  | BrokerTicket | Outcome | Win | ExitPrice | ExitReason | RealizedPnlUsd
+  | RealizedR | ResolvedAt | Provenance | SignalId | EntrySignalId
+  | XeneaCommitTx | XeneaOutcomeTx | NvnmReceiptTx | MeasurementCaveat

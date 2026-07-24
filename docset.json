@@ -1,0 +1,13 @@
+{
+  "id": "afritensor-trade-dossiers",
+  "name": "Afritensor Trade Dossier",
+  "description": "The decision record of one autonomous trade: the thesis committed before the outcome was known, every gate verdict that admitted or refused it, the execution as filled, the measured outcome, and the on-chain anchors binding all of it. Produced by the Zcastor agent stack; one dossier per resolved signal.",
+  "key_questions": [
+    "What direction did the agent commit to, and when — before or after the outcome was known?",
+    "Which gates evaluated this signal, and what did each one decide?",
+    "What entry, stop and target did the trade actually receive at the broker?",
+    "What was the measured outcome, in R and in dollars?",
+    "Which on-chain records attest this trade, and on which chains?",
+    "Was this trade a re-entry, and if so which trade does it follow?"
+  ]
+}

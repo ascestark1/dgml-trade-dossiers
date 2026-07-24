@@ -1,0 +1,28 @@
+{
+  "signal_id": "sig_20260707220101_bo6x",
+  "entry_signal_id": "ew_20260707220344_tkx0",
+  "committed_at": "2026-07-07T22:01:01Z",
+  "direction": "down",
+  "timeframe": "5m",
+  "session": "Overnight",
+  "confidence": "high",
+  "regime": "ranging",
+  "gates": [
+    {"name": "spread",        "verdict": "advisory", "detail": "50pts at execution price 63245.35, above the 40pt warn threshold; viability assessed downstream in dollars"},
+    {"name": "block_context", "verdict": "route",    "detail": "ranging regime on 5m — routed to the watcher for a range-edge entry instead of suppressing"},
+    {"name": "edge_ledger",   "verdict": "advisory", "detail": "segment 5m/Overnight/watcher has no history yet (n=0); shadow only, not enforcing"},
+    {"name": "viability",     "verdict": "pass",     "detail": "structural stop admitted at the configured risk fraction of balance"}
+  ],
+  "entry_mode": "pullback",
+  "trigger_price": 63289.35,
+  "fill_price": 63264.35,
+  "stop_loss": 63470.35,
+  "take_profit": 63048.62,
+  "volume": 0.06,
+  "ticket": "933125463",
+  "win": false,
+  "exit_price": 63474.05,
+  "exit_reason": "stop_loss",
+  "pnl_usd": -12.58,
+  "resolved_at": "2026-07-07T22:11:55Z"
+}

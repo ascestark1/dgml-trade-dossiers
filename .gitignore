@@ -1,0 +1,14 @@
+# emitted dossiers — generated, not source
+data/
+out/
+*.dgml.xml
+!samples/*.dgml.xml
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# os
+.DS_Store
