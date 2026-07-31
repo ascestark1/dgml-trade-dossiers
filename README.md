@@ -104,16 +104,6 @@ python3 query_docset.py docset/ --xpath '//docset:RealizedR'
 ```
 AFRITENSOR TRADE DOSSIERS — 231 decision records
 
-  win rate        112/231 = 48.5%
-  net P&L         $-542.81
-  mean realized   -0.231R
-
-  by session (count, net $)
-    Asian            73   $  -281.20
-    NY Open          51   $  -101.59
-    CME Gap          50   $  -111.93
-    London           41   $    +6.90
-    Overnight        13   $   -32.32
 ```
 
 That table is the argument for the whole format. Every figure came from XPath
