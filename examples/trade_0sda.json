@@ -1,0 +1,33 @@
+{
+  "signal_id": "sig_20260727140301_0sda",
+  "entry_signal_id": "ew_20260727142147_3fqs",
+  "committed_at": "2026-07-27T14:03:01Z",
+  "direction": "up",
+  "timeframe": "15m",
+  "session": "NY Open",
+  "confidence": "high",
+  "gates": [
+    {
+      "name": "spread",
+      "verdict": "advisory",
+      "detail": "50pts against a 40pt warn threshold; viability assessed downstream in dollars"
+    },
+    {
+      "name": "edge_ledger",
+      "verdict": "advisory",
+      "detail": "segment 15m/NY Open/market has n=0 samples, expectancy $+0.00; shadow only, not enforcing"
+    }
+  ],
+  "entry_mode": "pullback",
+  "trigger_price": 65068.85,
+  "fill_price": 65093.85,
+  "stop_loss": 64880.0,
+  "take_profit": 65584.85,
+  "volume": 0.01,
+  "ticket": "955405297",
+  "win": false,
+  "exit_price": 64873.05,
+  "exit_reason": "stop_loss",
+  "pnl_usd": -2.21,
+  "resolved_at": "2026-07-27T14:28:27Z"
+}

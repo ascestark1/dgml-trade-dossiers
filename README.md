@@ -39,20 +39,87 @@ in it reconciles to the broker's booked P&L to the cent.
     dg:href="#fill-price; #exit-price; #risk-points">-1.02R</docset:RealizedR>
 ```
 
+## The docset
+
+[`docset/`](docset/) holds **231 dossiers** — every trade the desk both opened
+and closed between 12 June and 29 July 2026, reconstructed from the agent logs
+and reconciled against the broker's own report to the cent.
+
+They are not curated. Losing trades, stopped-out trades and trades closed early
+are all in there, because a decision record you can edit is not a record.
+
+[`samples/`](samples/) has four annotated ones with a guide to what each shows.
+
 ## Usage
 
 ```bash
 pip install lxml
+```
+
+**Emit dossiers** from resolved trades:
+
+```bash
 python3 dgml_emitter.py examples/trade_bo6x.json --out out
 ```
 
 Input is one JSON object (or a list) per resolved trade — see
 [`examples/trade_bo6x.json`](examples/trade_bo6x.json) for the field set.
 Output is one `<signal_id>.dgml.xml` per trade, plus the canonical SHA-256
-that an on-chain receipt's `contentHash` should bind to.
+that an on-chain receipt's `contentHash` should bind to. Re-running that
+command reproduces
+[`samples/sig_20260707220101_bo6x.dgml.xml`](samples/sig_20260707220101_bo6x.dgml.xml)
+byte for byte.
 
-Re-running the command above reproduces
-[`samples/sig_20260707220101_bo6x.dgml.xml`](samples/) byte for byte.
+**Emit dossiers live**, as trades complete:
+
+```bash
+python3 dgml_watch.py --log zcastor.log --watch 300
+```
+
+Read-only with respect to the trading system: it imports nothing from the
+engine, holds no locks, and only reads the log the engine is already writing.
+Trades already written are skipped, so it is safe to run repeatedly or leave
+looping. A dossier emitted live is byte-identical to the same trade rebuilt
+from logs months later — verified across the full corpus.
+
+**Rebuild the whole docset** from raw logs:
+
+```bash
+python3 extract_trades.py zcastor.log --broker mt5_report.xlsx --out trades.json
+python3 dgml_emitter.py trades.json --out docset
+```
+
+Volume comes from the broker export when present, otherwise from `config.json`
+or `--volume`. Trades whose size cannot be established are skipped rather than
+guessed.
+
+**Query the docset** — plain XPath, no database, no index:
+
+```bash
+python3 query_docset.py docset/
+python3 query_docset.py docset/ --where session=Asian
+python3 query_docset.py docset/ --xpath '//docset:RealizedR'
+```
+
+```
+AFRITENSOR TRADE DOSSIERS — 231 decision records
+
+  win rate        112/231 = 48.5%
+  net P&L         $-542.81
+  mean realized   -0.231R
+
+  by session (count, net $)
+    Asian            73   $  -281.20
+    NY Open          51   $  -101.59
+    CME Gap          50   $  -111.93
+    London           41   $    +6.90
+    Overnight        13   $   -32.32
+```
+
+That table is the argument for the whole format. Every figure came from XPath
+over the files themselves — no database, no API, and no trust in the party that
+produced them. The same question asked of one dossier is asked of all of them,
+because they share one vocabulary.
 
 ## Conformance
 
@@ -77,6 +144,11 @@ Short version:
    including provenance transactions.
 3. **No custom attributes.** Meaning is carried by elements plus `dg:`/`xsi:`/
    `xml:` attributes, matching every published DGML sample.
+4. **No guessed attribution.** Several signals can be raised in the same
+   millisecond, and their gate lines interleave in the log. Verdicts are joined
+   to signals on the timeframe key and anything that cannot be attributed to
+   exactly one signal is dropped. A misattributed gate verdict would be worse
+   than an absent one.
 
 ## Provenance stack
 

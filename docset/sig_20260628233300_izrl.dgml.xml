@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dg:chunk xmlns:dg="http://dgml.io/ns/dg#" xmlns:docset="http://www.dgml.io/afritensor/trade-dossiers#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <docset:TradeDossier dg:structure="section" xml:id="dossier">
+    <dg:chunk dg:structure="header">Trade Dossier — sig_20260628233300_izrl</dg:chunk>
+    <docset:Thesis dg:structure="section" xml:id="thesis">
+      <dg:chunk dg:structure="header">Committed before the outcome was known</dg:chunk>
+      <docset:Direction dg:value="up" xml:id="direction">up</docset:Direction>
+      <docset:Timeframe dg:value="15m">15m</docset:Timeframe>
+      <docset:Session dg:value="Overnight">Overnight</docset:Session>
+      <docset:ConfidenceTier dg:value="high">high</docset:ConfidenceTier>
+      <docset:CommittedAt xsi:type="dateTime" dg:value="2026-06-28T23:33:00Z" xml:id="committed-at">2026-06-28T23:33:00Z</docset:CommittedAt>
+    </docset:Thesis>
+    <docset:Gates dg:structure="section" xml:id="gates">
+      <dg:chunk dg:structure="header">Gate verdicts</dg:chunk>
+      <docset:GateVerdict dg:structure="li" dg:value="advisory" xml:id="gate-spread">spread — 50pts against a 40pt warn threshold; viability assessed downstream in dollars</docset:GateVerdict>
+      <docset:GateVerdict dg:structure="li" dg:value="advisory" xml:id="gate-edge-ledger">edge_ledger — segment 15m/Overnight/market has n=2 samples, expectancy $+0.38; shadow only, not enforcing</docset:GateVerdict>
+    </docset:Gates>
+    <docset:Execution dg:structure="section" xml:id="execution">
+      <dg:chunk dg:structure="header">Execution</dg:chunk>
+      <docset:EntryMode dg:value="pullback">pullback</docset:EntryMode>
+      <docset:TriggerPrice xsi:type="decimal" dg:value="59311.95" xml:id="trigger-price">59,311.95</docset:TriggerPrice>
+      <docset:FillPrice xsi:type="decimal" dg:value="59336.95" xml:id="fill-price">59,336.95</docset:FillPrice>
+      <docset:StopLoss xsi:type="decimal" dg:value="59150.15" xml:id="stop-loss">59,150.15</docset:StopLoss>
+      <docset:TakeProfit xsi:type="decimal" dg:value="59817.85" xml:id="take-profit">59,817.85</docset:TakeProfit>
+      <docset:RiskPoints xsi:type="decimal" dg:value="186.80" dg:origin="computed" dg:itemprop="computedFrom" dg:href="#fill-price; #stop-loss" xml:id="risk-points">187 pts</docset:RiskPoints>
+      <docset:Volume xsi:type="decimal" dg:value="0.01">0.01 lots</docset:Volume>
+      <docset:BrokerTicket xsi:type="string" dg:value="921708866">921708866</docset:BrokerTicket>
+    </docset:Execution>
+    <docset:Outcome dg:structure="section" xml:id="outcome" dg:itemprop="resolves" dg:href="#thesis">
+      <dg:chunk dg:structure="header">Measured outcome</dg:chunk>
+      <docset:Win xsi:type="boolean" dg:value="true" xml:id="win">yes</docset:Win>
+      <docset:ExitPrice xsi:type="decimal" dg:value="59655.35" xml:id="exit-price">59,655.35</docset:ExitPrice>
+      <docset:ExitReason dg:value="early_close">early close</docset:ExitReason>
+      <docset:RealizedPnlUsd xsi:type="decimal" dg:value="19.10" xml:id="realized-pnl">$19.10</docset:RealizedPnlUsd>
+      <docset:RealizedR xsi:type="decimal" dg:value="1.7045" dg:origin="computed" dg:itemprop="computedFrom" dg:href="#fill-price; #exit-price; #risk-points">+1.70R</docset:RealizedR>
+      <docset:ResolvedAt xsi:type="dateTime" dg:value="2026-06-29T00:13:05Z">2026-06-29T00:13:05Z</docset:ResolvedAt>
+    </docset:Outcome>
+    <docset:Provenance dg:structure="section" xml:id="provenance">
+      <dg:chunk dg:structure="header">On-chain provenance</dg:chunk>
+      <docset:SignalId xsi:type="string" dg:value="sig_20260628233300_izrl">sig_20260628233300_izrl</docset:SignalId>
+      <docset:EntrySignalId xsi:type="string" dg:value="ew_20260629000625_9ktb">ew_20260629000625_9ktb</docset:EntrySignalId>
+    </docset:Provenance>
+  </docset:TradeDossier>
+</dg:chunk>

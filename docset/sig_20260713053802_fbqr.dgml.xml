@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dg:chunk xmlns:dg="http://dgml.io/ns/dg#" xmlns:docset="http://www.dgml.io/afritensor/trade-dossiers#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <docset:TradeDossier dg:structure="section" xml:id="dossier">
+    <dg:chunk dg:structure="header">Trade Dossier — sig_20260713053802_fbqr</dg:chunk>
+    <docset:Thesis dg:structure="section" xml:id="thesis">
+      <dg:chunk dg:structure="header">Committed before the outcome was known</dg:chunk>
+      <docset:Direction dg:value="up" xml:id="direction">up</docset:Direction>
+      <docset:Timeframe dg:value="30m">30m</docset:Timeframe>
+      <docset:Session dg:value="Asian">Asian</docset:Session>
+      <docset:ConfidenceTier dg:value="high">high</docset:ConfidenceTier>
+      <docset:Regime dg:value="ranging">ranging</docset:Regime>
+      <docset:CommittedAt xsi:type="dateTime" dg:value="2026-07-13T05:38:02Z" xml:id="committed-at">2026-07-13T05:38:02Z</docset:CommittedAt>
+    </docset:Thesis>
+    <docset:Gates dg:structure="section" xml:id="gates">
+      <dg:chunk dg:structure="header">Gate verdicts</dg:chunk>
+      <docset:GateVerdict dg:structure="li" dg:value="advisory" xml:id="gate-spread">spread — 50pts against a 40pt warn threshold; viability assessed downstream in dollars</docset:GateVerdict>
+      <docset:GateVerdict dg:structure="li" dg:value="route" xml:id="gate-block-context">block_context — ranging regime on 30m — routing to watcher (range-edge entry) instead of suppressing</docset:GateVerdict>
+      <docset:GateVerdict dg:structure="li" dg:value="advisory" xml:id="gate-edge-ledger">edge_ledger — segment 30m/Asian/watcher has n=0 samples, expectancy $+0.00; shadow only, not enforcing</docset:GateVerdict>
+    </docset:Gates>
+    <docset:Execution dg:structure="section" xml:id="execution">
+      <dg:chunk dg:structure="header">Execution</dg:chunk>
+      <docset:EntryMode dg:value="sweep">sweep</docset:EntryMode>
+      <docset:TriggerPrice xsi:type="decimal" dg:value="62322.85" xml:id="trigger-price">62,322.85</docset:TriggerPrice>
+      <docset:FillPrice xsi:type="decimal" dg:value="62347.85" xml:id="fill-price">62,347.85</docset:FillPrice>
+      <docset:StopLoss xsi:type="decimal" dg:value="62137.05" xml:id="stop-loss">62,137.05</docset:StopLoss>
+      <docset:TakeProfit xsi:type="decimal" dg:value="63057.95" xml:id="take-profit">63,057.95</docset:TakeProfit>
+      <docset:RiskPoints xsi:type="decimal" dg:value="210.80" dg:origin="computed" dg:itemprop="computedFrom" dg:href="#fill-price; #stop-loss" xml:id="risk-points">211 pts</docset:RiskPoints>
+      <docset:Volume xsi:type="decimal" dg:value="0.01">0.01 lots</docset:Volume>
+      <docset:BrokerTicket xsi:type="string" dg:value="939233648">939233648</docset:BrokerTicket>
+    </docset:Execution>
+    <docset:Outcome dg:structure="section" xml:id="outcome" dg:itemprop="resolves" dg:href="#thesis">
+      <dg:chunk dg:structure="header">Measured outcome</dg:chunk>
+      <docset:Win xsi:type="boolean" dg:value="false" xml:id="win">no</docset:Win>
+      <docset:ExitPrice xsi:type="decimal" dg:value="62130.75" xml:id="exit-price">62,130.75</docset:ExitPrice>
+      <docset:ExitReason dg:value="stop_loss">stop loss</docset:ExitReason>
+      <docset:RealizedPnlUsd xsi:type="decimal" dg:value="-12.87" xml:id="realized-pnl">-$12.87</docset:RealizedPnlUsd>
+      <docset:RealizedR xsi:type="decimal" dg:value="-1.0299" dg:origin="computed" dg:itemprop="computedFrom" dg:href="#fill-price; #exit-price; #risk-points">-1.03R</docset:RealizedR>
+      <docset:ResolvedAt xsi:type="dateTime" dg:value="2026-07-13T13:52:28Z">2026-07-13T13:52:28Z</docset:ResolvedAt>
+    </docset:Outcome>
+    <docset:Provenance dg:structure="section" xml:id="provenance">
+      <dg:chunk dg:structure="header">On-chain provenance</dg:chunk>
+      <docset:SignalId xsi:type="string" dg:value="sig_20260713053802_fbqr">sig_20260713053802_fbqr</docset:SignalId>
+      <docset:EntrySignalId xsi:type="string" dg:value="ew_20260713134423_jnkj">ew_20260713134423_jnkj</docset:EntrySignalId>
+    </docset:Provenance>
+  </docset:TradeDossier>
+</dg:chunk>

@@ -1,8 +1,7 @@
-# emitted dossiers — generated, not source
+# scratch output — the committed docset/ and samples/ are deliberate
 data/
 out/
-*.dgml.xml
-!samples/*.dgml.xml
+trades.json
 
 # python
 __pycache__/

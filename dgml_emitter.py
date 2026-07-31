@@ -119,15 +119,19 @@ def build_dossier(t: dict) -> etree._Element:
         gates_el = _el(dossier, DOCSET, "Gates",
                        dg_structure="section", xml_id="gates")
         _el(gates_el, DG, "chunk", "Gate verdicts", dg_structure="header")
+        seen: dict[str, int] = {}
         for g in gates:
             # The gate's identity lives in xml:id and the display text; the
             # verdict is the canonical value. No custom attributes — the spec
             # carries meaning in elements plus dg:/xsi: attributes only.
+            # xml:id must be unique per document, so a gate that legitimately
+            # fires twice gets -2, -3 ... rather than colliding.
             slug = str(g["name"]).strip().lower().replace("_", "-")
+            seen[slug] = seen.get(slug, 0) + 1
+            xid = f"gate-{slug}" if seen[slug] == 1 else f"gate-{slug}-{seen[slug]}"
             _el(gates_el, DOCSET, "GateVerdict",
                 f"{g['name']} — {g['detail']}",
-                dg_structure="li", dg_value=g["verdict"],
-                xml_id=f"gate-{slug}")
+                dg_structure="li", dg_value=g["verdict"], xml_id=xid)
 
     # ── EXECUTION — what the broker actually received ────────────────────
     ex = _el(dossier, DOCSET, "Execution",
