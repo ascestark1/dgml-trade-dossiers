@@ -39,6 +39,7 @@
       <dg:chunk dg:structure="header">On-chain provenance</dg:chunk>
       <docset:SignalId xsi:type="string" dg:value="sig_20260701130301_sbhs">sig_20260701130301_sbhs</docset:SignalId>
       <docset:EntrySignalId xsi:type="string" dg:value="ew_20260701130324_cww5">ew_20260701130324_cww5</docset:EntrySignalId>
+      <docset:XeneaCommitTx xsi:type="string" dg:value="0x3ed74da0f86f09522f503b633e09c35ab1886dbe6750279e13450907301c8370">0x3ed74da0f86f09522f503b633e09c35ab1886dbe6750279e13450907301c8370</docset:XeneaCommitTx>
     </docset:Provenance>
   </docset:TradeDossier>
 </dg:chunk>

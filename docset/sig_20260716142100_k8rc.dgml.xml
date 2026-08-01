@@ -41,6 +41,9 @@
       <dg:chunk dg:structure="header">On-chain provenance</dg:chunk>
       <docset:SignalId xsi:type="string" dg:value="sig_20260716142100_k8rc">sig_20260716142100_k8rc</docset:SignalId>
       <docset:EntrySignalId xsi:type="string" dg:value="ew_20260716142501_70nw">ew_20260716142501_70nw</docset:EntrySignalId>
+      <docset:XeneaCommitTx xsi:type="string" dg:value="0x135008905b7ddd26cc3a3bcf32b09d839cd7dc0b6b430904ad49133076a9d71e">0x135008905b7ddd26cc3a3bcf32b09d839cd7dc0b6b430904ad49133076a9d71e</docset:XeneaCommitTx>
+      <docset:XeneaOutcomeTx xsi:type="string" dg:value="0xf636824d30d73962788b27a54f53e7bd6ea8ad40e5eeba48e8ea06b9c56c8178">0xf636824d30d73962788b27a54f53e7bd6ea8ad40e5eeba48e8ea06b9c56c8178</docset:XeneaOutcomeTx>
+      <docset:NvnmReceiptTx xsi:type="string" dg:value="0x9c34a4028173bcf28f2d359ad914d198d9c0dc992e36fe80e7c54719e61c4c34">0x9c34a4028173bcf28f2d359ad914d198d9c0dc992e36fe80e7c54719e61c4c34</docset:NvnmReceiptTx>
     </docset:Provenance>
   </docset:TradeDossier>
 </dg:chunk>

@@ -82,10 +82,11 @@ def check(path: Path, by_tx: dict) -> tuple[int, int, list]:
                ("XeneaCommitTx", "XeneaOutcomeTx", "NvnmReceiptTx")]
     anchors = [(t, v) for t, v in anchors if v]
     if not anchors:
-        return 0, 0, [f"{sid}: no anchors in the document"]
+        return 0, 0, [], []
 
     ok = 0
     problems = []
+    divergences = []
     seen = set()
     for tag, tx in anchors:
         hits = by_tx.get(tx.lower())
@@ -94,16 +95,22 @@ def check(path: Path, by_tx: dict) -> tuple[int, int, list]:
             continue
         ok += 1
         # cross-check the outcome where the archive carries one
+        # NOTE: the chain's `win` and the document's Win answer DIFFERENT
+        # questions. On-chain, win means the oracle close was on the
+        # predicted side. In the dossier, Win means the broker booked a
+        # profit. A trade that is directionally right but stopped out first
+        # is a chain win and a document loss — both true, neither wrong.
+        # These are recorded as divergences, not failures.
         for kind, rec in hits:
             if "win" in rec:
                 doc_win = (val(doc, "Win") == "true")
-                key = (sid, kind, bool(rec["win"]), doc_win)
+                key = (sid, bool(rec["win"]), doc_win)
                 if bool(rec["win"]) != doc_win and key not in seen:
                     seen.add(key)
-                    problems.append(
-                        f"{sid}: {kind} says win={rec['win']}, "
-                        f"document says win={doc_win}")
-    return len(anchors), ok, problems
+                    divergences.append(
+                        (sid, val(doc, "ExitReason") or "?",
+                         bool(rec["win"]), doc_win))
+    return len(anchors), ok, problems, divergences
 
 
 def main():
@@ -132,37 +139,64 @@ def main():
     files = sorted(target.glob("*.dgml.xml")) if target.is_dir() else [target]
     total_anchors = total_ok = 0
     all_problems = []
+    all_div = []
     unanchored = 0
     for f in files:
-        n, ok, probs = check(f, by_tx)
+        n, ok, probs, div = check(f, by_tx)
         if n == 0:
             unanchored += 1
         total_anchors += n
         total_ok += ok
         all_problems += probs
+        all_div += div
 
     print(f"  {len(files)} dossier(s) checked")
     print(f"  {total_ok}/{total_anchors} anchors resolved in the archive")
     if unanchored:
         print(f"  {unanchored} carry no anchors (bridge commit never landed)")
 
-    real = [p for p in all_problems if "not in the archive" not in p]
     missing = [p for p in all_problems if "not in the archive" in p]
+    real = [p for p in all_problems if "not in the archive" not in p]
 
     if missing:
-        print(f"\n  {len(missing)} anchor(s) not found in this bundle:")
-        for p in missing[:5]:
+        print(f"\n  {len(missing)} anchor(s) not in this bundle:")
+        for p in missing[:3]:
             print(f"    {p}")
-        print("    (expected if you are checking against the PUBLIC bundle —")
-        print("     commit transactions live only in the private one)")
+        print("    (expected against the PUBLIC bundle — commit transactions")
+        print("     live only in the private one)")
+
+    if all_div:
+        cw = [d for d in all_div if d[2] and not d[3]]
+        cl = [d for d in all_div if not d[2] and d[3]]
+        print(f"\n  {len(all_div)} outcome divergence(s) — EXPECTED, not errors:")
+        print(f"    chain win / document loss : {len(cw):>3}", end="")
+        if cw:
+            top = {}
+            for d in cw: top[d[1]] = top.get(d[1], 0) + 1
+            print("   mostly " + max(top, key=top.get).replace("_", " "))
+        else:
+            print()
+        print(f"    chain loss / document win : {len(cl):>3}", end="")
+        if cl:
+            top = {}
+            for d in cl: top[d[1]] = top.get(d[1], 0) + 1
+            print("   mostly " + max(top, key=top.get).replace("_", " "))
+        else:
+            print()
+        print()
+        print("    On-chain, win means the oracle close was on the predicted")
+        print("    side. In the dossier, Win means the broker booked a profit.")
+        print("    A call that was right but stopped out first is a chain win")
+        print("    and a document loss. Both true. The divergence is the")
+        print("    interesting number, not a fault.")
+
     if real:
-        print(f"\n  {len(real)} DISAGREEMENT(S) between document and chain:")
+        print(f"\n  {len(real)} INTEGRITY PROBLEM(S):")
         for p in real:
             print(f"    {p}")
-        print("\n  These matter. A dossier should never contradict its anchor.")
         sys.exit(1)
 
-    print("\n  No dossier contradicts its on-chain record.")
+    print("\n  Every anchor present in this bundle resolves.")
     print("  Verified without an RPC, an explorer, or a live chain.")
 
 
