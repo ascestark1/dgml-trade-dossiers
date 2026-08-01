@@ -1,0 +1,85 @@
+{
+  "archived_at": "2026-08-01T09:36:18.689331+00:00",
+  "xenea_chain_id": 1096,
+  "xenea_block_range": [
+    0,
+    172924
+  ],
+  "contracts": {
+    "SignalRegistry": "0x81e27A06c92C380d780df4B82C358124c78DaE54",
+    "PerformanceLedger": "0xE7374F79Cfa9648911209DF140A1fe781B8cE299",
+    "AgentPayment": "0x45901f4AfdEa5f8a5762963b1d6bF2A7862ca7b1",
+    "NvnmReceipts": "0x26EDcb5778bBe058D61Be18331753d917fCbD232"
+  },
+  "total_raw_logs": 23762,
+  "note": "Indexed string parameters exist on-chain only as keccak256(value); the plaintext was never stored by the contract and is absent here by design. Match by hashing a candidate signal id.",
+  "bundle": "public",
+  "event_counts": {
+    "UnknownEvent": 8190,
+    "ContractsLinked": 1,
+    "HeartbeatPulse": 1869,
+    "OutcomeReported": 2724,
+    "OutcomeRecorded": 2724,
+    "ReceiptAttested": 694
+  },
+  "withheld": {
+    "events": [
+      "SignalCommitted",
+      "SignalRevealed"
+    ],
+    "reason": "committed theses and model quality estimates; already public on-chain, not republished here",
+    "private_manifest_sha256": "ccb84941f133b73e336d8c1b8ef9724efbcfc853a9a2bd97a5bcaf66b263d26f"
+  },
+  "files": {
+    "decoded/ContractsLinked.jsonl": {
+      "sha256": "9142ddbbf1d2071cd0ea6c95e2387d732489c912ced3618b55bfd78bd56aa306",
+      "bytes": 431,
+      "lines": 1
+    },
+    "decoded/HeartbeatPulse.jsonl": {
+      "sha256": "349aed2cccb0f4fe2484d944fc906ef3414e5e81828b1efc4e64aa6adb41b23f",
+      "bytes": 694137,
+      "lines": 1869
+    },
+    "decoded/OutcomeRecorded.jsonl": {
+      "sha256": "1ec1cb6a0a7ba2ff98bfa41b1812a684d9c32a7a00faa6399ffca5b9479bda00",
+      "bytes": 1671062,
+      "lines": 2724
+    },
+    "decoded/OutcomeReported.jsonl": {
+      "sha256": "4c79cc84173412077d027db922097f3d2d956f4884efd8c234cfe2d38225a3d6",
+      "bytes": 1464038,
+      "lines": 2724
+    },
+    "decoded/ReceiptAttested.jsonl": {
+      "sha256": "324b24b0f4a6c8fe4d2d253da7fadbd91a8ce33dd860783507e424b570bf2360",
+      "bytes": 483865,
+      "lines": 694
+    },
+    "decoded/UnknownEvent.jsonl": {
+      "sha256": "c28bdab27b5c304c9c7c99e21101f11ed1a5eb58213f3126b49ec60cb159091f",
+      "bytes": 4886524,
+      "lines": 8190
+    },
+    "raw/AgentPayment.logs.jsonl": {
+      "sha256": "ed161c9889f9440aad84051e1a818e4c7c48fdbbe2d3f3b129525d9e0081bd70",
+      "bytes": 4789809,
+      "lines": 8179
+    },
+    "raw/NvnmReceipts.logs.jsonl": {
+      "sha256": "b531dbec30cb3fc2acb393de3ba18a01bfcc0a7d04bc221330cafea1e140c199",
+      "bytes": 581656,
+      "lines": 696
+    },
+    "raw/PerformanceLedger.logs.jsonl": {
+      "sha256": "75f827a1129012ba4288f8e76ac9132277e462008115ce909d10ab59dc17b8c9",
+      "bytes": 2104686,
+      "lines": 2730
+    },
+    "raw/SignalRegistry.logs.jsonl": {
+      "sha256": "bc2315c192521a825a8b62939878b8fce44015eae02d49b0f0789fd18894f9ba",
+      "bytes": 2734747,
+      "lines": 4597
+    }
+  }
+}
